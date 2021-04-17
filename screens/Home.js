@@ -1,16 +1,18 @@
-import {Card,FAB} from 'react-native-paper'
-import React from 'react';
-import { StyleSheet, Text, View , Image, FlatList} from 'react-native';
-import CreateEmployee from "./createEmployee"
+import {Card,FAB, Button} from 'react-native-paper'
+import React,{useState} from 'react';
+import { StyleSheet, Text, View , Image, FlatList, Modal} from 'react-native';
+import CreateEmployee from "./Register"
+import { Entypo,FontAwesome5,FontAwesome,MaterialCommunityIcons,Feather } from '@expo/vector-icons';
 
 
 
-
-const Home = ()=> {
+const Home = (Props)=> {
     const data = [
-        {id:1, Age:30, Weight: 100 },
+        {id:1, Age:30, Weight: 100 , Height: '180', Target: '100',Gender: 'Male'},
 
     ]
+
+    const [modal,setModal] = useState(false)
     
     // const render_list = ((item)=>{
     //     return(
@@ -30,6 +32,7 @@ const Home = ()=> {
     //     )
 
     // })
+    const image = { uri: "" };
   return (
         <View style = {styles.container}>
 
@@ -49,28 +52,154 @@ const Home = ()=> {
             }
             // keyExtractor = {item => '${item.id}'}
             /> */}
-                    <FAB
+
+            <Card 
+            style={styles.mycard}
+            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
+            >
+                <View style={styles.cardcontent}>
+                <FontAwesome name="transgender" size={30} color="#f49898" style={{marginRight:10}} />
+                <Text style={styles.text}>Gender : Male</Text>
+                </View>
+            </Card>
+
+            <Card 
+            style={styles.mycard}
+            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
+            >
+                <View style={styles.cardcontent}>
+                <FontAwesome5 name="weight" size={30} color="#f49898" style={{marginRight:10}} />
+                <Text style={styles.text}>Weight : 130 Kg</Text>
+
+                </View>
+            </Card>
+
+            <Card 
+            style={styles.mycard}
+            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
+            >
+                <View style={styles.cardcontent}>
+                <Feather name="target" size={30} color="#f49898" style={{marginRight:10}} />
+                <Text style={styles.text}>Target Weight : 100 Kg</Text>
+
+                </View>
+            </Card>
+
+
+            <Card 
+            style={styles.mycard}
+            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
+            >
+                <View style={styles.cardcontent}>
+                <Entypo name="man" size={30} color="#f49898" style={{marginRight:10}}/>
+                <Text style={styles.text}>Age : 30 Yrs</Text>
+
+                </View>
+            </Card>
+
+            <Card 
+            style={styles.mycard}
+            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
+            >
+                <View style={styles.cardcontent}>
+                <MaterialCommunityIcons name="human-male-height-variant" size={30} color="#f49898" style={{marginRight:10}} />
+                <Text style={styles.text}>Height : 180 Cm</Text>
+
+                </View>
+            </Card>        
+
+
+
+            <View style={styles.buttonview}>
+                <Button icon="upload" mode='outlined' 
+                theme= {theme} 
+                style = {styles.photobutton} 
+                onPress= {() => setModal(true)} >
+                    Take A Photo
+                </Button>
+            </View>
+
+            <Modal
+        animationType="slide"
+        transparent= {true}
+        visible={modal}
+        onRequestClose={()=>{
+            setModal(false)
+        }}
+        >
+            <View style= {styles.modelview}>
+              <View style={styles.modalbutton}>
+                          <Button icon="camera" theme= {theme}
+                           mode="contained" 
+                           onPress={() => console.log("camera")}>
+                         Camera
+                          </Button>
+                          <Button icon="image-area" theme= {theme} mode="contained" onPress={() => console.log("gallery")}>
+                          Gallery
+                          </Button>
+
+              </View>
+            <Button icon="camera"  
+            onPress={() => setModal(false)}
+            style= {{marginTop:20}}>
+     cancel
+    </Button>
+            </View>
+        </Modal>
+
+
+                    <FAB  onPress = {()=>Props.navigation.navigate('Register Info')}
                         style={styles.fab}
                         small= {false}
                         icon="plus"
                         label = "Regiser Data"
 
-                        theme = {{colors: {accent:"#f49898"}}}
-                        onPress={()=>{console.log("pressed")}}
+                        theme = {theme}
                     />
         </View>
 
   )
 }
 
+const theme= {
+    colors:{
+      primary:'#f49898',
+      accent: '#f49898'
+    }}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
     },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center"
+      },
     mycard: {
       margin: 6,
     },  
+    buttonview:{
+
+        marginTop: 100,
+        alignSelf:'center',
+    },
+
+    photobutton:{
+            justifyContent:'center',
+            borderColor:'#f49898',
+            borderRadius: 10,
+            height: 60,
+            width:200 
+    },   
+     mycard:{
+        margin: 3,
+    },
+    cardcontent:{
+        flexDirection:'row',
+        padding: 8
+    },
 
     name: {
         fontSize:20,
@@ -111,6 +240,20 @@ const styles = StyleSheet.create({
     background_image: {
         height: 200 ,
         width: '100%',
-    }
+    },
+    modalbutton:{
+        flexDirection: 'row',
+        justifyContent:'space-around',
+        padding: 10,
+        marginTop: 20
+  
+      },
+      modelview:{
+        position: "absolute",
+        bottom:2,
+        height: 150,
+        width: '100%',
+        backgroundColor: '#fae9e9'
+      }
     })
 export default Home

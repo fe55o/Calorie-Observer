@@ -3,8 +3,9 @@ import { StyleSheet, Text, View , Image, FlatList, Modal} from 'react-native';
 import {TextInput,Button} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
+import Home from './Home'
 
-const CreateEmployee = ()=> {
+const Register = ()=> {
     const [Age,setAge] = useState("")
     const [Weight,setWeight] = useState("")
     const [Height,setHeight] = useState("")
@@ -65,7 +66,7 @@ const CreateEmployee = ()=> {
       value={TargetWeight}
       mode= "outlined"
       keyboardType= "number-pad"
-      //theme = {{colors:""}}
+      theme = {Home.theme}
       onChangeText={text => setTargetWeight(text)}
     />
         <TextInput style = {styles.input}
@@ -109,4 +110,4 @@ const styles = StyleSheet.create({
         margin: 10
     }
 })
-export default CreateEmployee
+export default Register
