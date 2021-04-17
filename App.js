@@ -8,8 +8,8 @@ import CreateEmployee from "./screens/createEmployee"
 export default function App() {
   return (
     <View style={styles.container}>
-      <CreateEmployee/>
-      {/* <Home/> */}
+      {/* <CreateEmployee/> */}
+      <Home/>
     </View>
   );
 }
