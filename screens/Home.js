@@ -3,7 +3,8 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View , Image, FlatList, Modal} from 'react-native';
 import CreateEmployee from "./Register"
 import { Entypo,FontAwesome5,FontAwesome,MaterialCommunityIcons,Feather } from '@expo/vector-icons';
-
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
 
 const Home = (Props)=> {
@@ -12,27 +13,45 @@ const Home = (Props)=> {
 
     ]
 
+    const pickFromGallery = async ()=> {
+  
+  const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+        if (granted){
+          console.log("Granted")
+                 let data = await ImagePicker.launchImageLibraryAsync({
+                  mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                  allowsEditing: true,
+                  aspect: [1, 1],
+                  quality: 1,
+                });
+            console.log(data)
+        }else {
+          console.log(" not Granted")
+  
+            Alert.alert("you need to give us the premission in order to upload image")
+        }
+  }
+  const pickFromCamera = async ()=> {
+        const {granted} = await Permissions.askAsync(Permissions.CAMERA)
+  
+        if (granted){
+                 let data = await ImagePicker.launchCameraAsync({
+                  mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                  allowsEditing: true,
+                  aspect: [1, 1],
+                  quality: 1,
+                });
+            console.log(data)
+        }else {
+            Alert.alert("you need to give us the premission in order to upload image")
+        }
+  }
+
+  
+
     const [modal,setModal] = useState(false)
     
-    // const render_list = ((item)=>{
-    //     return(
-    //         <Card style = {styles.mycard} key= {item.id}>
-                
-    //         <View style= {styles.cardview}>
 
-
-    //             <View>
-    //             <Text style = {styles.text}>Your Age : {item.Age}</Text>
-    //             <Text style = {styles.text}>Gender : {item.Gender}</Text>
-    //                 <Text style = {styles.text}>Your Age : {item.Age}</Text>
-    //                 <Text style = {styles.text}>Your Weight : {item.Weight}</Text>
-    //             </View>
-    //         </View>
-    //         </Card>
-    //     )
-
-    // })
-    const image = { uri: "" };
   return (
         <View style = {styles.container}>
 
@@ -44,18 +63,9 @@ const Home = (Props)=> {
             <Text style = {styles.text}>Welcome to </Text>
              <Text style = {styles.name}>Calorie Observer</Text> 
              </View>
-            {/* {render_list} */}
-            {/* <FlatList
-            data = {data}
-            renderItem={({item})=>{
-                return render_list(item)           }
-            }
-            // keyExtractor = {item => '${item.id}'}
-            /> */}
 
             <Card 
             style={styles.mycard}
-            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
             >
                 <View style={styles.cardcontent}>
                 <FontAwesome name="transgender" size={30} color="#f49898" style={{marginRight:10}} />
@@ -65,7 +75,6 @@ const Home = (Props)=> {
 
             <Card 
             style={styles.mycard}
-            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
             >
                 <View style={styles.cardcontent}>
                 <FontAwesome5 name="weight" size={30} color="#f49898" style={{marginRight:10}} />
@@ -76,7 +85,6 @@ const Home = (Props)=> {
 
             <Card 
             style={styles.mycard}
-            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
             >
                 <View style={styles.cardcontent}>
                 <Feather name="target" size={30} color="#f49898" style={{marginRight:10}} />
@@ -88,7 +96,6 @@ const Home = (Props)=> {
 
             <Card 
             style={styles.mycard}
-            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
             >
                 <View style={styles.cardcontent}>
                 <Entypo name="man" size={30} color="#f49898" style={{marginRight:10}}/>
@@ -99,7 +106,6 @@ const Home = (Props)=> {
 
             <Card 
             style={styles.mycard}
-            onPress = {()=>{Linking.openURL('mailto:bc@abc.com')}}
             >
                 <View style={styles.cardcontent}>
                 <MaterialCommunityIcons name="human-male-height-variant" size={30} color="#f49898" style={{marginRight:10}} />
@@ -131,19 +137,29 @@ const Home = (Props)=> {
               <View style={styles.modalbutton}>
                           <Button icon="camera" theme= {theme}
                            mode="contained" 
-                           onPress={() => console.log("camera")}>
+                           style={{borderRadius:80}}
+                           onPress={pickFromCamera}>
                          Camera
                           </Button>
-                          <Button icon="image-area" theme= {theme} mode="contained" onPress={() => console.log("gallery")}>
+                          <Button icon="image-area" 
+                          style={{borderRadius:80}}
+                          theme= {theme} 
+                          mode="contained" 
+                          onPress={pickFromGallery}>
                           Gallery
                           </Button>
 
               </View>
-            <Button icon="camera"  
+              <View style={{alignItems:"center"}}>
+            <Button icon="camera"
+            mode='outlined' 
+            style = {styles.cancelbutton}
+            theme= {theme} 
             onPress={() => setModal(false)}
-            style= {{marginTop:20}}>
-     cancel
-    </Button>
+            >
+                cancel
+                </Button>
+                </View>
             </View>
         </Modal>
 
@@ -189,10 +205,18 @@ const styles = StyleSheet.create({
     photobutton:{
             justifyContent:'center',
             borderColor:'#f49898',
-            borderRadius: 10,
+            borderRadius: 100,
             height: 60,
             width:200 
     },   
+    cancelbutton:{
+        height: 40,
+        width: 180,
+        borderRadius:90,
+        justifyContent:'center',
+        backgroundColor:"#fff",
+        marginTop:20
+    },
      mycard:{
         margin: 3,
     },
@@ -219,7 +243,6 @@ const styles = StyleSheet.create({
         padding:10,
         marginTop:10,
         justifyContent: 'center'
- // <-- the magic
 
     },
     text:{

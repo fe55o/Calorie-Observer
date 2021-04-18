@@ -8,13 +8,25 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
+    
+const myoptions = {
+  title:"Home",
+  headerTintColor:'white',
+  headerStyle:{
+    backgroundColor:"#f49898"
+  }}
+ 
 
 function App() {
   return (
     <View style={styles.container}>
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Register Info" component={Register} />
+            <Stack.Screen name="Home" 
+            component={Home}
+            options={myoptions} />
+            <Stack.Screen name="Register Info" 
+            component={Register}
+            options={{...myoptions,title:"Register"}}/>
             {/* <Stack.Screen name="Profile" component={Profile} /> */}
           </Stack.Navigator>
 
@@ -38,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: Contants.statusBarHeight
+    // marginTop: Contants.statusBarHeight
         // alignItems: 'center',
     // justifyContent: 'center',
   },

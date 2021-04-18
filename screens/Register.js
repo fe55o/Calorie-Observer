@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View , Image, FlatList, Modal} from 'react-native';
+import { StyleSheet, Text, View , Image, FlatList, Modal,StatusBar} from 'react-native';
 import {TextInput,Button} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -11,13 +11,15 @@ const Register = ()=> {
     const [Height,setHeight] = useState("")
     const [TargetWeight,setTargetWeight] = useState("")
     const [Days,setDays] = useState("")
-    const [modal,setModal] = useState(false)
-    this.state = {
-      country: 'uk'
-  }
+
+  //   this.state = {
+  //     country: 'uk'
+  // }
     return(
         <View style = {styles.root}>
-
+      {/* <StatusBar
+        backgroundColor="#61dafb" /> */}
+{/* 
 <DropDownPicker
     items={[
         {label: 'USA', value: 'usa', icon: () => <Icon name="flag" size={18} color="#900" />, hidden: true},
@@ -34,7 +36,7 @@ const Register = ()=> {
     onChangeItem={(item) => this.setState.bind(this)({
         country: item.value
     })}
-/>
+/> */}
 
 
     <TextInput style = {styles.input}
@@ -78,25 +80,15 @@ const Register = ()=> {
       onChangeText={text => setDays(text)}
     />
 
-    
-  <Button icon="upload" mode="contained" onPress={() => setModal(true)}>
-    Press me
-  </Button>
+            <View style = {{alignItems:'center'}}>
+          <Button icon="upload" 
+          mode="contained" 
+          style={styles.savebutton}
+          >
+            Save Info
+          </Button>
 
-        <Modal
-        animationType="slide"
-        transparent= {false}
-        visible={modal}
-        onRequestClose={()=>{
-            setModal(false)
-        }}
-        >
-            <View>
-            <Button icon="camera" mode="contained" onPress={() => setModal(false)}>
-     cancel
-    </Button>
-            </View>
-        </Modal>
+        </View>
         </View>
     )
 
@@ -104,10 +96,18 @@ const Register = ()=> {
 
 const styles = StyleSheet.create({
     root:{
-        flex : 1
+        flex : 1,
     },
     input: {
         margin: 10
-    }
+    },
+    savebutton:{
+      height: 40,
+      width: 180,
+      borderRadius:90,
+       justifyContent:'center',
+      backgroundColor:"#f49898",
+       marginTop:20
+  },
 })
 export default Register
