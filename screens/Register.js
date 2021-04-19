@@ -4,6 +4,7 @@ import {TextInput,Button} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Home from './Home'
+import { ThemeProvider } from '@react-navigation/native';
 
 const Register = ()=> {
     const [Age,setAge] = useState("")
@@ -40,13 +41,17 @@ const Register = ()=> {
 /> */}
 
 <View style={styles.container}>
+  <Text style={styles.text}> Gender :</Text>
           <Picker
             selectedValue={selectedValue}
-            style={{ height: 50, width: 150 }}
+            mode="dropdown"
+            style={styles.picker1}
+            itemStyle={{backgroundColor:'#f49898'}}
+            theme={theme}
             onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
           >
-            <Picker.Item label="Male" value="Male" />
-            <Picker.Item label="Female" value="Female" />
+            <Picker.Item  label="Male" color='#f49898'  value="Male" />
+            <Picker.Item label="Female" color='#f49898' value="Female" />
     
           </Picker>
         </View>
@@ -54,11 +59,13 @@ const Register = ()=> {
       label="Age"
       value={Age}
       mode= "outlined"
+      theme={theme}
       keyboardType="number-pad"
       //theme = {{colors:""}}
       onChangeText={text => setAge(text)}
     />
     <TextInput style = {styles.input}
+    theme={theme}
       label="Weight (Kg)"
       value={Weight}
       mode= "outlined"
@@ -67,6 +74,7 @@ const Register = ()=> {
       onChangeText={text => setWeight(text)}
     />
     <TextInput style = {styles.input}
+    theme={theme}
       label="Height"
       value={Height}
       mode= "outlined"
@@ -74,15 +82,31 @@ const Register = ()=> {
       //theme = {{colors:""}}
       onChangeText={text => setHeight(text)}
     />
+    <View style={styles.container}>
+  <Text style={styles.text}> Daily Routine :</Text>
+          <Picker
+            selectedValue={selectedValue}
+            mode="dropdown"
+            style={styles.picker2}
+            theme={theme}
+            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          >
+            <Picker.Item label="move a lot" value="move a lot" />
+            <Picker.Item label="Move a little" value="Move a little" />
+    
+          </Picker>
+        </View>
+
     <TextInput style = {styles.input}
+    theme={theme}
       label="Target Weight"
       value={TargetWeight}
       mode= "outlined"
       keyboardType= "number-pad"
-      theme = {Home.theme}
       onChangeText={text => setTargetWeight(text)}
     />
         <TextInput style = {styles.input}
+        theme={theme}
       label="How many days?"
       value={Days}
       mode= "outlined"
@@ -90,6 +114,22 @@ const Register = ()=> {
       //theme = {{colors:""}}
       onChangeText={text => setDays(text)}
     />
+
+<View style={styles.container}>
+  <Text style={styles.text}> Diseases :</Text>
+          <Picker
+            selectedValue={selectedValue}
+            mode="dropdown"
+            style={styles.picker2}
+            theme={theme}
+            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          >
+            <Picker.Item label="Diabetes" value="Diabetes" />
+            <Picker.Item label="Salmonella" value="Salmonella" />
+            <Picker.Item label="Heart Disease" value="Heart Disease" />
+    
+          </Picker>
+        </View>
 
             <View style = {{alignItems:'center'}}>
           <Button icon="upload" 
@@ -106,10 +146,24 @@ const Register = ()=> {
 
 }
 
+const theme= {
+  colors:{
+    primary:'#f49898',
+    accent: '#f49898'
+  }}
+
 const styles = StyleSheet.create({
     root:{
         flex : 1,
     },
+    text: {
+      fontSize:20,
+      marginRight:30,
+      marginLeft:10,
+      //textAlign: 'center',
+      color: '#f49898',
+  },
+
     input: {
         margin: 10
     },
@@ -119,12 +173,35 @@ const styles = StyleSheet.create({
       borderRadius:90,
        justifyContent:'center',
       backgroundColor:"#f49898",
-       marginTop:20
+       marginTop:40
   },
     container: {
-    flex: 1,
-    paddingTop: 40,
-    alignItems: "center"
-  }
+    alignItems: "center",
+    flexDirection:'row',
+
+  },
+  picker1:{
+     height: 50, 
+     width: 120,
+     borderColor:'#f49898',
+    //  tintColor:'#f49898',
+    //  backgroundColor:"#f49898",
+
+  },
+  itemStyles:{
+    fontSize:20,
+    color:"#f49898",
+    backgroundColor:'#f49898'
+
+  },
+
+  picker2:{
+    height: 50, 
+    width: 150,
+    borderColor:'#f49898',
+   //  tintColor:'#f49898',
+   //  backgroundColor:"#f49898",
+
+ },
 })
 export default Register
