@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View , Image, FlatList, Modal,StatusBar} from 'react-native';
+import { StyleSheet, Text, View , Image, FlatList, Modal,StatusBar,Picker} from 'react-native';
 import {TextInput,Button} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -11,7 +11,8 @@ const Register = ()=> {
     const [Height,setHeight] = useState("")
     const [TargetWeight,setTargetWeight] = useState("")
     const [Days,setDays] = useState("")
-
+    const [selectedValue, setSelectedValue] = useState("Male");
+    
   //   this.state = {
   //     country: 'uk'
   // }
@@ -38,7 +39,17 @@ const Register = ()=> {
     })}
 /> */}
 
-
+<View style={styles.container}>
+          <Picker
+            selectedValue={selectedValue}
+            style={{ height: 50, width: 150 }}
+            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          >
+            <Picker.Item label="Male" value="Male" />
+            <Picker.Item label="Female" value="Female" />
+    
+          </Picker>
+        </View>
     <TextInput style = {styles.input}
       label="Age"
       value={Age}
@@ -90,6 +101,7 @@ const Register = ()=> {
 
         </View>
         </View>
+        
     )
 
 }
@@ -109,5 +121,10 @@ const styles = StyleSheet.create({
       backgroundColor:"#f49898",
        marginTop:20
   },
+    container: {
+    flex: 1,
+    paddingTop: 40,
+    alignItems: "center"
+  }
 })
 export default Register
