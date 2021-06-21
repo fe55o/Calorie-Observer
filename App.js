@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from "./screens/Home"
+import result from "./screens/result"
+
 import Contants from 'expo-constants'
 import Register from "./screens/Register"
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,9 +13,9 @@ const Stack = createStackNavigator();
     
 const myoptions = {
   title:"Home",
-  headerTintColor:'white',
+  headerTintColor:'#EDC28F',
   headerStyle:{
-    backgroundColor:"#f49898"
+    backgroundColor:"#49426C",
   }}
  
 
@@ -24,6 +26,9 @@ function App() {
             <Stack.Screen name="Home" 
             component={Home}
             options={myoptions} />
+            <Stack.Screen name="result" 
+            component={result}
+            options={{...myoptions,title:"Result"}}/>
             <Stack.Screen name="Register Info" 
             component={Register}
             options={{...myoptions,title:"Register"}}/>
@@ -49,7 +54,7 @@ export default ()=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#3d0066',
     // marginTop: Contants.statusBarHeight
         // alignItems: 'center',
     // justifyContent: 'center',
